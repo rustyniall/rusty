@@ -1,0 +1,6 @@
+[submodule "rusty/themes/hugo-bearblog"]
+	path = rusty/themes/hugo-bearblog
+	url = https://github.com/janraasch/hugo-bearblog.git
+[submodule "rusty/themes/chalk"]
+	path = rusty/themes/chalk
+	url = https://github.com/ph-ph/chalk.git
