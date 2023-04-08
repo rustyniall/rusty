@@ -1,1 +1,0 @@
-<h{{ .Level }} id="{{ .Anchor | safeURL }}" clas=" mark rss xml">{{ .Text | safeHTML }}</h{{ .Level }}>
