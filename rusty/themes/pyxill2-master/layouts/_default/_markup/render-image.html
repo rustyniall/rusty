@@ -1,0 +1,44 @@
+{{ $image := .Page.Resources.GetMatch .Destination }}
+
+{{ $used:= $image}}
+
+{{ $webpsrc := "" }}
+{{ $jpgsrc := "" }}
+{{ $webpsrc2 := "" }}
+{{ $jpgsrc2 := "" }}
+{{ $usedsrc:= $image }}
+
+{{ if ne $image.MediaType.SubType  "gif" }}
+{{ $webpsrc = ($image.Fit "720x500 q95 webp" ).Permalink }}
+{{ $jpgsrc = (($image.Fit "720x500 jpg" )).Permalink }}
+{{ $webpsrc2 = ($image.Fit "1440x1000 q95 webp" ).Permalink }}
+{{ $jpgsrc2 = (($image.Fit "1440x1000 jpg" )).Permalink }}
+{{ $usedsrc = $jpgsrc}}
+{{ else }}
+{{ $usedsrc = $image.Permalink  }}
+{{ end }}
+
+
+<figure class="img-wrapper container picture"  style="width:{{$image.Width}}px" >
+   
+{{ with .Title}}   <div class="title-img">{{ . }}</div> {{ end }}
+<picture>
+
+{{ with $webpsrc }}<source type="image/webp" srcset="{{ . }} 1x , {{ $webpsrc2 }} 2x" > {{ end }}
+{{ with $jpgsrc }}<source type="image/jpeg" srcset="{{ $jpgsrc }} 1x, {{ $jpgsrc2 }} 2x" >{{ end }}
+   
+    <img 
+    class="post-img" 
+    src="{{ $usedsrc }}" 
+    {{ with .Text}}  alt="{{ . }}" {{ end }} 
+    {{ with .Title}} title="{{ . }}"{{ end }} 
+    loading="lazy"
+    width="{{$used.Width}}" 
+    height="{{$used.Height}}"
+     >
+   </picture>
+     <a href="{{ .Destination | safeURL }}" target="_blank"  class="fullscreen-container" aria-label="Fullscreen image"> </a>
+ 
+     {{ with .Text}}   <figcaption class="small" style="width:{{$image.Width}}px"> {{ . }}</figcaption> {{ end }}
+</figure>
+

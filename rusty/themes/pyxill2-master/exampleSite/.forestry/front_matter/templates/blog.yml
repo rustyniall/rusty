@@ -1,0 +1,12 @@
+---
+label: Blog
+hide_body: false
+display_field: title
+fields:
+- name: title
+  type: text
+  config:
+    required: false
+  label: Title
+pages:
+- exampleSite/content/post/test.md

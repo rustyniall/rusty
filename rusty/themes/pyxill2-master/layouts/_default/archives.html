@@ -1,0 +1,41 @@
+{{ partial "head.html" . }}
+<div class="site-wrap">
+    {{ partial "header.html" . }}
+    <div class="post p2 p-responsive wrap" role="main">
+        <div class="measure">
+          <div class="post-header mb2">
+            <h1 class="py2" itemscope="" itemtype="http://schema.org/WebPage" itemprop="name">{{ .Title }} </h1>
+          </div>
+        {{ range (where .Site.RegularPages "Type" "post").GroupByDate "2006" }}
+	
+        <section class="archive ">
+          <h2  aria-label="Articles published during {{ .Key }}">{{ .Key }}</h2>
+          
+          <table class="none">
+              {{ range .Pages }}
+              <tr>
+                
+                <td style="vertical-align: text-top" ><span >•</span></td>   
+                <td ><a href="{{ .Permalink }}" class="permalink">{{ .Title }}</a><span class="post-meta"> (Author: {{ .Params.author }}) </span></td>
+              
+            </tr>
+            <tr>
+                
+              <td ></td>   
+              <td valign="top" class="post-meta" >{{ if isset .Params "tags" }}
+                <span >
+                  <span class="prefix">tags:</span>{{ range $i, $e := .Params.tags }}{{if $i}}, {{end}}<a href="/tags/{{ . | urlize }}" >{{ . }}</a>{{ end }} 
+              <span aria-hidden="true"> | </span> {{ end }}<span> Date: <time content="{{ .Date.Format "2006-01-02"}}" >{{ .Date.Format "Jan 2" }}</time></span>
+            </td>
+            
+          </tr>
+              {{ end }}
+          </table>
+        </section>
+        {{ end }}
+      </div>
+    </div>
+    </div>
+    {{ partial "footer.html" . }}
+
+    
